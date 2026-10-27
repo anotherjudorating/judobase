@@ -6,16 +6,16 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>judobase.schemas.Judoka &mdash; judobase v2.0.1 documentation</title>
+  <title>judobase.schemas.Judoka &mdash; judobase v3.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
 
   
-    <link rel="canonical" href="https://DavidDzgoev.github.io/judobase/user_guide/_autosummary/judobase.schemas.Judoka.html" />
+    <link rel="canonical" href="https://anotherjudorating.github.io/judobase/user_guide/_autosummary/judobase.schemas.Judoka.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=0e7b1b85"></script>
+      <script src="../../_static/documentation_options.js?v=f30b24c3"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -83,7 +83,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#judobase.schemas.Judoka.side"><code class="docutils literal notranslate"><span class="pre">Judoka.side</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#judobase.schemas.Judoka.status"><code class="docutils literal notranslate"><span class="pre">Judoka.status</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#judobase.schemas.Judoka.youtube_links"><code class="docutils literal notranslate"><span class="pre">Judoka.youtube_links</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#judobase.schemas.Judoka.parse_birth_date"><code class="docutils literal notranslate"><span class="pre">Judoka.parse_birth_date</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -120,7 +119,7 @@
           <li class="breadcrumb-item"><a href="../schemas.html">Schemas</a></li>
       <li class="breadcrumb-item active">judobase.schemas.Judoka</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/DavidDzgoev/judobase/blob/master/docs/source/user_guide/_autosummary/judobase.schemas.Judoka.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/anotherjudorating/judobase/blob/master/docs/source/user_guide/_autosummary/judobase.schemas.Judoka.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -305,10 +304,17 @@
 <span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Height&quot;</span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="nt">&quot;birth_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The birth date of the judoka.&quot;</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;date-time&quot;</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Birth Date&quot;</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;date-time&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The birth date of the judoka; None if unknown (judobase usually hides it, see dob_year).&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Birth Date&quot;</span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="nt">&quot;country&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The country the judoka represents.&quot;</span><span class="p">,</span>
@@ -316,9 +322,16 @@
 <span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="nt">&quot;id_country&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
 <span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The identifier for the judoka&#39;s country.&quot;</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Country ID&quot;</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Country ID&quot;</span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="nt">&quot;country_short&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The short code for the judoka&#39;s country.&quot;</span><span class="p">,</span>
@@ -414,9 +427,6 @@
 <span class="w">      </span><span class="nt">&quot;dob_year&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">            </span><span class="p">{</span>
-<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
-<span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="p">{</span>
 <span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
 <span class="w">            </span><span class="p">},</span>
 <span class="w">            </span><span class="p">{</span>
@@ -424,7 +434,7 @@
 <span class="w">            </span><span class="p">}</span>
 <span class="w">         </span><span class="p">],</span>
 <span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The year the judoka was born.&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The year the judoka was born; None if unknown.&quot;</span><span class="p">,</span>
 <span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Year of Birth&quot;</span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -497,14 +507,14 @@
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.archived" title="judobase.schemas.Judoka.archived"><code class="xref py py-obj docutils literal notranslate"><span class="pre">archived</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.belt" title="judobase.schemas.Judoka.belt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">belt</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.best_result" title="judobase.schemas.Judoka.best_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">best_result</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
-<li><p><a class="reference internal" href="#judobase.schemas.Judoka.birth_date" title="judobase.schemas.Judoka.birth_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">birth_date</span> <span class="pre">(datetime.datetime)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#judobase.schemas.Judoka.birth_date" title="judobase.schemas.Judoka.birth_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">birth_date</span> <span class="pre">(datetime.datetime</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.categories" title="judobase.schemas.Judoka.categories"><code class="xref py py-obj docutils literal notranslate"><span class="pre">categories</span> <span class="pre">(list[str])</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.club" title="judobase.schemas.Judoka.club"><code class="xref py py-obj docutils literal notranslate"><span class="pre">club</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.coach" title="judobase.schemas.Judoka.coach"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coach</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.country" title="judobase.schemas.Judoka.country"><code class="xref py py-obj docutils literal notranslate"><span class="pre">country</span> <span class="pre">(str)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.country_short" title="judobase.schemas.Judoka.country_short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">country_short</span> <span class="pre">(str)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.death_age" title="judobase.schemas.Judoka.death_age"><code class="xref py py-obj docutils literal notranslate"><span class="pre">death_age</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
-<li><p><a class="reference internal" href="#judobase.schemas.Judoka.dob_year" title="judobase.schemas.Judoka.dob_year"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dob_year</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#judobase.schemas.Judoka.dob_year" title="judobase.schemas.Judoka.dob_year"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dob_year</span> <span class="pre">(int</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.family_name" title="judobase.schemas.Judoka.family_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">family_name</span> <span class="pre">(str)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.family_name_local" title="judobase.schemas.Judoka.family_name_local"><code class="xref py py-obj docutils literal notranslate"><span class="pre">family_name_local</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.file_flag" title="judobase.schemas.Judoka.file_flag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_flag</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
@@ -514,7 +524,7 @@
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.given_name" title="judobase.schemas.Judoka.given_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">given_name</span> <span class="pre">(str)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.given_name_local" title="judobase.schemas.Judoka.given_name_local"><code class="xref py py-obj docutils literal notranslate"><span class="pre">given_name_local</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.height" title="judobase.schemas.Judoka.height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">height</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
-<li><p><a class="reference internal" href="#judobase.schemas.Judoka.id_country" title="judobase.schemas.Judoka.id_country"><code class="xref py py-obj docutils literal notranslate"><span class="pre">id_country</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#judobase.schemas.Judoka.id_country" title="judobase.schemas.Judoka.id_country"><code class="xref py py-obj docutils literal notranslate"><span class="pre">id_country</span> <span class="pre">(int</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.middle_name" title="judobase.schemas.Judoka.middle_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">middle_name</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.middle_name_local" title="judobase.schemas.Judoka.middle_name_local"><code class="xref py py-obj docutils literal notranslate"><span class="pre">middle_name_local</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.personal_picture" title="judobase.schemas.Judoka.personal_picture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">personal_picture</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
@@ -523,11 +533,6 @@
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.side" title="judobase.schemas.Judoka.side"><code class="xref py py-obj docutils literal notranslate"><span class="pre">side</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.status" title="judobase.schemas.Judoka.status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">status</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#judobase.schemas.Judoka.youtube_links" title="judobase.schemas.Judoka.youtube_links"><code class="xref py py-obj docutils literal notranslate"><span class="pre">youtube_links</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
-</ul>
-</dd>
-<dt class="field-even">Validators<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><a class="reference internal" href="#judobase.schemas.Judoka.parse_birth_date" title="judobase.schemas.Judoka.parse_birth_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_birth_date</span></code></a> » <a class="reference internal" href="#judobase.schemas.Judoka.birth_date" title="judobase.schemas.Judoka.birth_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">birth_date</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -557,12 +562,13 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="judobase.schemas.Judoka.birth_date">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">birth_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#judobase.schemas.Judoka.birth_date" title="Link to this definition"></a></dt>
-<dd><p>The birth date of the judoka.</p>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">birth_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">BeforeValidator</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="pre">_empty_to_none</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">json_schema_input_type</span></span><span class="o"><span class="pre">=</span></span><span class="pre">PydanticUndefined</span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">AfterValidator</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="pre">_epoch_to_none</span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#judobase.schemas.Judoka.birth_date" title="Link to this definition"></a></dt>
+<dd><p>The birth date of the judoka; None if unknown (judobase usually hides it, see dob_year).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Validated by<span class="colon">:</span></dt>
+<dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><a class="reference internal" href="#judobase.schemas.Judoka.parse_birth_date" title="judobase.schemas.Judoka.parse_birth_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_birth_date</span></code></a></p></li>
+<li><p><strong>func</strong> = &lt;function _epoch_to_none at 0x7a5fc09a0720&gt;</p></li>
+<li><p><strong>json_schema_input_type</strong> = PydanticUndefined</p></li>
 </ul>
 </dd>
 </dl>
@@ -606,8 +612,16 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="judobase.schemas.Judoka.dob_year">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dob_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#judobase.schemas.Judoka.dob_year" title="Link to this definition"></a></dt>
-<dd><p>The year the judoka was born.</p>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dob_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">BeforeValidator</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="pre">_empty_to_none</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">json_schema_input_type</span></span><span class="o"><span class="pre">=</span></span><span class="pre">PydanticUndefined</span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#judobase.schemas.Judoka.dob_year" title="Link to this definition"></a></dt>
+<dd><p>The year the judoka was born; None if unknown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Constraints<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> = &lt;function _empty_to_none at 0x7a5fc100d940&gt;</p></li>
+<li><p><strong>json_schema_input_type</strong> = PydanticUndefined</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
@@ -666,8 +680,16 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="judobase.schemas.Judoka.id_country">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id_country</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#judobase.schemas.Judoka.id_country" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id_country</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">BeforeValidator</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="pre">_empty_to_none</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">json_schema_input_type</span></span><span class="o"><span class="pre">=</span></span><span class="pre">PydanticUndefined</span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#judobase.schemas.Judoka.id_country" title="Link to this definition"></a></dt>
 <dd><p>The identifier for the judoka’s country.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Constraints<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> = &lt;function _empty_to_none at 0x7a5fc100d940&gt;</p></li>
+<li><p><strong>json_schema_input_type</strong> = PydanticUndefined</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
@@ -716,12 +738,6 @@
 <dt class="sig sig-object py" id="judobase.schemas.Judoka.youtube_links">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">youtube_links</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#judobase.schemas.Judoka.youtube_links" title="Link to this definition"></a></dt>
 <dd><p>Links to YouTube videos related to the judoka.</p>
-</dd></dl>
-
-<dl class="py method pydantic_validator">
-<dt class="sig sig-object py" id="judobase.schemas.Judoka.parse_birth_date">
-<em class="property"><span class="pre">validator</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_birth_date</span></span><em class="autodoc_pydantic_validator_arrow property">&#160; <span class="pre">»</span>&#160; </em><a class="reference internal" href="#judobase.schemas.Judoka.birth_date" title="judobase.schemas.Judoka.birth_date"><em class="xref py py-obj"><span class="pre">birth_date</span></em></a><a class="headerlink" href="#judobase.schemas.Judoka.parse_birth_date" title="Link to this definition"></a></dt>
-<dd><p>Ensures the birth_date field is set to UTC timezone.</p>
 </dd></dl>
 
 </dd></dl>
