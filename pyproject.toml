@@ -25,17 +25,15 @@ classifiers = [
     "Framework :: Pydantic :: 2",
 ]
 dependencies = [
-    "aioresponses>=0.7.7",
     "aiohttp>=3.11.11",
     "pydantic>=2.10.5",
-    "setuptools>=75.6.0"
 ]
 requires-python = ">=3.10"
 
 [project.urls]
-Homepage = "https://github.com/DavidDzgoev/judobase"
-Documentation = "https://daviddzgoev.github.io/judobase/"
-Repository = "https://github.com/DavidDzgoev/judobase"
+Homepage = "https://github.com/anotherjudorating/judobase"
+Documentation = "https://anotherjudorating.github.io/judobase/"
+Repository = "https://github.com/anotherjudorating/judobase"
 
 [tool.setuptools.packages.find]
 where = ["."]

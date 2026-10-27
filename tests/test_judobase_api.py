@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from unittest.mock import AsyncMock, patch
 
 import pytest
@@ -33,6 +33,17 @@ class TestJudobase:
             )
             mock_get_competition_list.assert_called_once_with()
             assert comps == [Competition(**comp) for comp in test_data["expected"]]
+
+            comps_by_day = await client.competitions_in_range(date(2023, 5, 1), date(2023, 8, 1))
+            assert comps_by_day == comps
+
+    @pytest.mark.asyncio
+    async def test_timeout(self):
+        """The request timeout can be set."""
+        async with JudoBase() as client:
+            assert client._timeout.total == 10
+        async with JudoBase(timeout=30) as client:
+            assert client._timeout.total == 30
 
     @patch("judobase.base.ContestAPI.find_contests", new_callable=AsyncMock)
     @patch("judobase.base.CompetitionAPI.get_competition_list", new_callable=AsyncMock)

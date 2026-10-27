@@ -2,7 +2,7 @@
 
 # flake8: noqa: WPS226
 
-from aiohttp import ClientSession
+from aiohttp import ClientSession, ClientTimeout
 
 from judobase.schemas import (
     Competition,
@@ -16,13 +16,15 @@ from judobase.schemas import (
 
 BASE_URL = "https://data.ijf.org/api/"
 HTTP_STATUS_OK = 200
+DEFAULT_TIMEOUT = 10
 
 
 class _Base:
     """Base class for API interaction with session management."""
 
-    def __init__(self):
+    def __init__(self, timeout: float = DEFAULT_TIMEOUT):
         self._session = ClientSession()
+        self._timeout = ClientTimeout(total=timeout)
 
     async def __aenter__(self):
         """Enter async context and create session if needed."""
@@ -43,7 +45,7 @@ class _Base:
         """Helper method to send a GET request and return JSON."""
         response = await self._session.get(
             f"{BASE_URL}get_json",
-            timeout=10,
+            timeout=self._timeout,
             params=request_params,
         )
         if response.status != HTTP_STATUS_OK:
@@ -83,7 +85,7 @@ class CompetitionAPI(_Base):
             )
         ]
 
-    async def get_competition_info(self, competition_id: str) -> Competition:
+    async def get_competition_info(self, competition_id: int | str) -> Competition:
         """Fetches details of a specific competition."""
         return Competition(
             **await self._get_json_dict(
@@ -100,9 +102,9 @@ class ContestAPI(_Base):
 
     async def find_contests(
         self,
-        competition_id: str = "",
-        weight_id: str = "",
-        person_id: str = "",
+        competition_id: int | str = "",
+        weight_id: int | str = "",
+        person_id: int | str = "",
         include: str = "info",
         contest_code: str = "",
     ) -> list[Contest]:
@@ -128,7 +130,7 @@ class ContestAPI(_Base):
 class JudokaAPI(_Base):
     """Handles judoka-related API requests."""
 
-    async def get_judoka_info(self, competitor_id: str) -> Judoka:
+    async def get_judoka_info(self, competitor_id: int | str) -> Judoka:
         """Fetches judoka information."""
         return Judoka(
             **await self._get_json_dict(
@@ -143,7 +145,7 @@ class JudokaAPI(_Base):
 class RatingAPI(_Base):
     """Handles rating-related API requests."""
 
-    async def get_rating_history(self, competitor_id: str) -> list[RatingHistory]:
+    async def get_rating_history(self, competitor_id: int | str) -> list[RatingHistory]:
         """Fetches rating history."""
         return [
             RatingHistory(**rating)
@@ -155,7 +157,7 @@ class RatingAPI(_Base):
             )
         ]
 
-    async def get_current_rating(self, competitor_id: str) -> list[CurrentRating]:
+    async def get_current_rating(self, competitor_id: int | str) -> list[CurrentRating]:
         """Fetches current rating rows for a competitor."""
         return [
             CurrentRating(**rating)
@@ -171,7 +173,7 @@ class RatingAPI(_Base):
 class CountryAPI(_Base):
     """Handles country-related API requests."""
 
-    async def get_country_info(self, country_id: str) -> Country:
+    async def get_country_info(self, country_id: int | str) -> Country:
         """Fetches country information."""
         return Country(
             **await self._get_json_dict(

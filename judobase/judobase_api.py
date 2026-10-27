@@ -1,7 +1,7 @@
 # flake8: noqa: WPS215
 
 import asyncio
-from datetime import datetime
+from datetime import date, datetime
 
 from judobase.base import CompetitionAPI, ContestAPI, CountryAPI, JudokaAPI, RatingAPI
 from judobase.schemas import (
@@ -27,16 +27,17 @@ class JudoBase(CompetitionAPI, ContestAPI, JudokaAPI, CountryAPI, RatingAPI):
         """Retrieves data for all competitions."""
         return await self.get_competition_list()
 
-    async def competitions_in_range(
-        self, start_date: datetime, end_date: datetime
-    ) -> list[Competition]:
-        """Retrieves data for competitions within a specified date range."""
+    async def competitions_in_range(self, start_date: date, end_date: date) -> list[Competition]:
+        """Retrieves data for competitions starting within a specified date range.
+
+        Both days are included. A datetime is accepted too, only its day is used.
+        """
+        if isinstance(start_date, datetime):
+            start_date = start_date.date()
+        if isinstance(end_date, datetime):
+            end_date = end_date.date()
         all_comps = await self.all_competition()
-        return [
-            comp
-            for comp in all_comps
-            if isinstance(comp.date_from, datetime) and start_date <= comp.date_from <= end_date
-        ]
+        return [comp for comp in all_comps if start_date <= comp.date_from <= end_date]
 
     async def competition_by_id(self, competition_id: int | str) -> Competition:
         """Retrieves data for a specific competition by its ID."""

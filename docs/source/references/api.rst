@@ -18,7 +18,7 @@ Instead, it focuses only on modules that are relevant for documentation purposes
    \|- :ref:`judobase.py <judobase_api>`
    \|- schemas.py
 
-For everything else, please refer to the `source code <https://github.com/DavidDzgoev/judobase>`_
+For everything else, please refer to the `source code <https://github.com/anotherjudorating/judobase>`_
 directly.
 
 -------

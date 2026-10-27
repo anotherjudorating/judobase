@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 import pytest
-from aiohttp import ClientSession
+from aiohttp import ClientSession, ClientTimeout
 
 from judobase import (
     Competition,
@@ -54,7 +54,7 @@ class TestBase:
                 assert result == {"data": "test_response"}
                 mock_session.get.assert_called_once_with(
                     f"{BASE_URL}get_json",
-                    timeout=10,
+                    timeout=ClientTimeout(total=10),
                     params={"key": "value"},
                 )
 
