@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime, timezone
+from datetime import date
 
 from judobase import Competition, JudoBase
 
@@ -7,8 +7,8 @@ from judobase import Competition, JudoBase
 async def main():
     async with JudoBase() as api:
         competitions: list[Competition] = await api.competitions_in_range(
-            datetime(2024, 6, 1, tzinfo=timezone.utc),
-            datetime(2024, 8, 31, tzinfo=timezone.utc),
+            date(2024, 6, 1),
+            date(2024, 8, 31),
         )
         print(len(competitions))  # Output: 14
 

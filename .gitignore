@@ -1,6 +1,9 @@
 # IDE files
 .idea/
 
+# macOS
+.DS_Store
+
 # Python cache files
 __pycache__/
 *.pyc

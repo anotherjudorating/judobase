@@ -1,12 +1,12 @@
 # Judobase API Wrapper
 
 [![PyPI](https://img.shields.io/pypi/v/judobase)](https://pypi.org/project/judobase/)
-[![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![Downloads](https://img.shields.io/pypi/dm/judobase)](https://pypistats.org/packages/judobase)
 [![License](https://img.shields.io/pypi/l/judobase)](https://opensource.org/licenses/MIT)
-[![Docs](https://img.shields.io/badge/docs-stable-brightgreen)](https://daviddzgoev.github.io/judobase/)
-[![Codecov](https://img.shields.io/codecov/c/gh/DavidDzgoev/judobase)](https://app.codecov.io/gh/DavidDzgoev/judobase)
-[![Contributors](https://img.shields.io/github/contributors/DavidDzgoev/judobase)](https://github.com/DavidDzgoev/judobase/graphs/contributors)
+[![Docs](https://img.shields.io/badge/docs-stable-brightgreen)](https://anotherjudorating.github.io/judobase/)
+[![Codecov](https://img.shields.io/codecov/c/gh/anotherjudorating/judobase)](https://app.codecov.io/gh/anotherjudorating/judobase)
+[![Contributors](https://img.shields.io/github/contributors/anotherjudorating/judobase)](https://github.com/anotherjudorating/judobase/graphs/contributors)
 [![Ruff](https://img.shields.io/badge/linting-ruff-orange)](https://github.com/astral-sh/ruff)
 
 
@@ -85,15 +85,39 @@ asyncio.run(main())
 
 ---
 
+## Upgrading to 3.0
+
+Version 3.0 returns values with their real types instead of the raw strings of the API:
+
+- Ids are `int`: `id_fight`, `id_competition`, `id_country`, `id_person_blue`, ...
+- "Unknown" values (`0`, `"0"`, `""`) are `None`: `id_winner` before a contest is decided,
+  fighters before the draw sets them, `dob_year`, `id_weight`, ...
+- `Competition.date_from` / `date_to` are `datetime.date` (they were `datetime` at midnight UTC).
+- Unknown times are `None` instead of 1970-01-01: `Contest.date_start_ts`,
+  `Contest.first_hajime_at_ts`, `Judoka.birth_date`.
+- `Contest.bye` and `Competition.is_teams` are `bool`.
+- `Competition.has_results` is still `int`: it is the number of results, not a flag.
+- Methods taking ids accept both `int` and `str`.
+- The request timeout can be set: `JudoBase(timeout=30)` (10 seconds by default).
+
+```python
+# 2.x
+if contest.id_winner != "0" and contest.id_winner == contest.id_person_blue: ...
+# 3.x
+if contest.id_winner is not None and contest.id_winner == contest.id_person_blue: ...
+```
+
+---
+
 ## Documentation
 
-For a detailed description of all available methods and endpoints, please refer to the [Documentation](https://daviddzgoev.github.io/judobase/).
+For a detailed description of all available methods and endpoints, please refer to the [Documentation](https://anotherjudorating.github.io/judobase/).
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Also, if you have any questions or suggestions, please feel free to open an [issue](https://github.com/DavidDzgoev/judobase/issues).
+Contributions are welcome! Also, if you have any questions or suggestions, please feel free to open an [issue](https://github.com/anotherjudorating/judobase/issues).
 
 > **Note:** See [CONTRIBUTING.md](.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md) for details on how to contribute..
 

@@ -61,4 +61,4 @@ Also it is available to retrieve data about contest events like score, osaekomi,
 - ``CountryAPI``: Base methods for fetching data about countries.
 
 
-More examples can be found in the `examples <https://github.com/DavidDzgoev/judobase/tree/master/examples>`_ directory of the project.
+More examples can be found in the `examples <https://github.com/anotherjudorating/judobase/tree/master/examples>`_ directory of the project.

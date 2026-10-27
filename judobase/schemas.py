@@ -2,11 +2,57 @@
 
 # flake8: noqa: WPS110, WPS114
 
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from enum import Enum
-from typing import Any
+from typing import Annotated, Any
 
-from pydantic import AliasChoices, BaseModel, Field, field_validator
+from pydantic import AfterValidator, AliasChoices, BaseModel, BeforeValidator, Field
+
+
+def _empty_to_none(value: Any) -> Any:
+    """Judobase sends 0, "0" or "" when a value is unknown (e.g. no winner yet)."""
+    if value in (0, "0", ""):
+        return None
+    return value
+
+
+def _to_day(value: Any) -> Any:
+    """Judobase sends days as "2021/12/11", sometimes with a time part."""
+    if isinstance(value, str):
+        return value.replace("/", "-")[:10]
+    return value
+
+
+def _to_utc(value: datetime) -> datetime:
+    """Judobase times are UTC, but most of them come without a timezone."""
+    if value.tzinfo is None:
+        return value.replace(tzinfo=timezone.utc)
+    return value
+
+
+def _epoch_to_none(value: datetime | None) -> datetime | None:
+    """Judobase sends 0 for an unknown time, which would become 1970-01-01."""
+    if value is None:
+        return None
+    value = _to_utc(value)
+    if value.timestamp() == 0:
+        return None
+    return value
+
+
+OptionalInt = Annotated[int | None, BeforeValidator(_empty_to_none)]
+"""Integer where 0, "0" and "" mean "unknown" and become None."""
+
+Day = Annotated[date, BeforeValidator(_to_day)]
+"""Calendar day without time or timezone."""
+
+UtcDatetime = Annotated[datetime, AfterValidator(_to_utc)]
+"""Datetime that always has the UTC timezone."""
+
+OptionalTimestamp = Annotated[
+    datetime | None, BeforeValidator(_empty_to_none), AfterValidator(_epoch_to_none)
+]
+"""UTC datetime where 0 and 1970-01-01 mean "unknown" and become None."""
 
 
 class WeightEnum(str, Enum):
@@ -50,20 +96,16 @@ WEIGHT_ID_MAPPING = {
 class Competition(BaseModel):
     """Represents the data about competition which provide the judobase api."""
 
-    id_competition: str = Field(
+    id_competition: int = Field(
         ..., title="Competition ID", description="The unique identifier for the competition."
     )
-    date_from: str | datetime = Field(
-        ...,
-        title="Start Date",
-        description="The start date of the competition in YYYY/MM/DD format.",
-    )
-    date_to: str | datetime = Field(
-        ..., title="End Date", description="The end date of the competition in YYYY/MM/DD format."
-    )
+    date_from: Day = Field(..., title="Start Date", description="The start day of the competition.")
+    date_to: Day = Field(..., title="End Date", description="The end day of the competition.")
     name: str = Field(..., title="Competition Name", description="The name of the competition.")
     has_results: int | None = Field(
-        None, title="Results Available", description="Indicates if results are available."
+        None,
+        title="Results Count",
+        description="The number of results available; 0 when there are none yet.",
     )
     city: str = Field(..., title="City", description="The city where the competition is held.")
     street: str | None = Field(
@@ -87,10 +129,10 @@ class Competition(BaseModel):
     competition_code: str | None = Field(
         None, title="Competition Code", description="The unique code for the competition."
     )
-    updated_at_ts: datetime = Field(
+    updated_at_ts: UtcDatetime = Field(
         ..., title="Last Updated Timestamp", description="The timestamp of the last update."
     )
-    updated_at: datetime | None = Field(
+    updated_at: UtcDatetime | None = Field(
         None, title="Last Updated", description="The last update date and time."
     )
     timezone: str | None = Field(
@@ -111,7 +153,7 @@ class Competition(BaseModel):
     id_country: int = Field(
         ..., title="Country ID", description="The unique identifier for the country."
     )
-    is_teams: int = Field(
+    is_teams: bool = Field(
         ..., title="Team Competition", description="Indicates if the competition is a team event."
     )
     status: str | None = Field(None, title="Status", description="The status of the competition.")
@@ -127,45 +169,6 @@ class Competition(BaseModel):
     rank_name: str | None = Field(
         None, title="Ranking Name", description="The ranking name associated with the competition."
     )
-
-    @field_validator("updated_at", mode="after")
-    @classmethod
-    def parse_updated_at(cls, value):
-        """Converts the `updated_at` field to a datetime object with UTC timezone."""
-        return value.replace(tzinfo=timezone.utc)
-
-    @staticmethod
-    def parse_date(value):
-        """Helper method to convert a string to a datetime object with UTC timezone."""
-        if isinstance(value, datetime):
-            return value.replace(tzinfo=timezone.utc)
-
-        formats = [
-            "%Y-%m-%dT%H:%M:%SZ",  # ISO 8601 with time and timezone
-            "%Y/%m/%d",  # Date format with slashes
-            "%Y-%m-%d",  # Date format with dashes
-        ]
-
-        for fmt in formats:
-            try:
-                return datetime.strptime(value, fmt).replace(tzinfo=timezone.utc)
-            except ValueError:
-                continue  # Try the next format if this one fails
-
-        # If none of the formats match, raise an error
-        raise ValueError(f"Invalid date format: {value}")
-
-    @field_validator("date_from", mode="after")
-    @classmethod
-    def parse_date_from(cls, value):
-        """Validator for `date_from` field."""
-        return cls.parse_date(value)
-
-    @field_validator("date_to", mode="after")
-    @classmethod
-    def parse_date_to(cls, value):
-        """Validator for `date_to` field."""
-        return cls.parse_date(value)
 
 
 class EventTag(BaseModel):
@@ -261,18 +264,24 @@ class Contest(BaseModel):
     """Represents the data about contest which provide the judobase api."""
 
     # General contest data
-    id_competition: str = Field(
+    id_competition: int = Field(
         ..., title="Competition ID", description="The unique identifier for the competition."
     )
-    id_fight: str = Field(..., title="Fight ID", description="The unique identifier for the fight.")
-    id_person_blue: str = Field(
-        ..., title="Blue Person ID", description="The unique identifier for the blue competitor."
+    id_fight: int = Field(..., title="Fight ID", description="The unique identifier for the fight.")
+    id_person_blue: OptionalInt = Field(
+        ...,
+        title="Blue Person ID",
+        description="The unique identifier for the blue competitor; None until the draw sets it.",
     )
-    id_person_white: str = Field(
-        ..., title="White Person ID", description="The unique identifier for the white competitor."
+    id_person_white: OptionalInt = Field(
+        ...,
+        title="White Person ID",
+        description="The unique identifier for the white competitor; None until the draw sets it.",
     )
-    id_winner: str | None = Field(
-        None, title="Winner ID", description="The unique identifier for the winner."
+    id_winner: OptionalInt = Field(
+        None,
+        title="Winner ID",
+        description="The unique identifier for the winner; None until the contest is decided.",
     )
     is_finished: bool = Field(
         ..., title="Is Finished", description="Indicates if the contest is finished."
@@ -280,14 +289,16 @@ class Contest(BaseModel):
     round: int = Field(..., title="Round", description="The round number of the contest.")
     duration: str | None = Field(None, title="Duration", description="The duration of the contest.")
     gs: bool = Field(..., title="GS", description="Golden score.")
-    bye: str = Field(..., title="Bye", description="Indicates if a bye was applied in the contest.")
+    bye: bool = Field(
+        ..., title="Bye", description="Indicates if a bye was applied in the contest."
+    )
     fight_duration: str | None = Field(
         None, title="Fight Duration", description="The duration of the fight."
     )
     weight: str | None = Field(
         None, title="Weight", description="The weight category or weight value."
     )
-    id_weight: str | None = Field(
+    id_weight: OptionalInt = Field(
         None, title="Weight ID", description="The identifier for the weight category."
     )
     type: int = Field(..., title="Type", description="The type of contest.")
@@ -296,16 +307,16 @@ class Contest(BaseModel):
     )
     round_name: str = Field(..., title="Round Name", description="The name of the round.")
     mat: int = Field(..., title="Mat", description="The mat number where the contest took place.")
-    date_start_ts: datetime = Field(
-        ..., title="Start Timestamp", description="The contest start timestamp."
+    date_start_ts: OptionalTimestamp = Field(
+        ..., title="Start Timestamp", description="The contest start timestamp; None if unknown."
     )
-    updated_at: datetime = Field(
+    updated_at: UtcDatetime = Field(
         ..., title="Updated At", description="The timestamp when the contest was last updated."
     )
-    first_hajime_at_ts: datetime = Field(
+    first_hajime_at_ts: OptionalTimestamp = Field(
         ...,
         title="First Hajime Timestamp",
-        description="The timestamp of the first hajime (start signal).",
+        description="The timestamp of the first hajime (start signal); None if unknown.",
     )
 
     # White person details
@@ -351,7 +362,7 @@ class Contest(BaseModel):
         title="White Country Short",
         description="Short country code for the white competitor.",
     )
-    id_country_white: str | None = Field(
+    id_country_white: OptionalInt = Field(
         None, title="White Country ID", description="Identifier for the white competitor's country."
     )
     picture_folder_1: str | None = Field(
@@ -411,7 +422,7 @@ class Contest(BaseModel):
     country_short_blue: str | None = Field(
         None, title="Blue Country Short", description="Short country code for the blue competitor."
     )
-    id_country_blue: str | None = Field(
+    id_country_blue: OptionalInt = Field(
         None, title="Blue Country ID", description="Identifier for the blue competitor's country."
     )
     picture_folder_2: str | None = Field(
@@ -480,24 +491,6 @@ class Contest(BaseModel):
         description="contest events like score, osaekomi, shido, etc.",
     )
 
-    @field_validator("updated_at", mode="after")
-    @classmethod
-    def parse_updated_at(cls, value: datetime) -> datetime:
-        """Converts the `updated_at` field to a datetime object with UTC timezone."""
-        return value.replace(tzinfo=timezone.utc)
-
-    @field_validator("date_start_ts", mode="after")
-    @classmethod
-    def parse_date_start_ts(cls, value: datetime) -> datetime:
-        """Converts the `date_start_ts` field to a datetime object with UTC timezone."""
-        return value.replace(tzinfo=timezone.utc)
-
-    @field_validator("first_hajime_at_ts", mode="after")
-    @classmethod
-    def parse_first_hajime_at_ts(cls, value: datetime) -> datetime:
-        """Converts the `first_hajime_at_ts` field to a datetime object with UTC timezone."""
-        return value.replace(tzinfo=timezone.utc)
-
 
 class Judoka(BaseModel):
     """Represents the data about a judoka."""
@@ -544,11 +537,14 @@ class Judoka(BaseModel):
         None, title="Best Result", description="The best competition result achieved by the judoka."
     )
     height: str | None = Field(..., title="Height", description="The height of the judoka.")
-    birth_date: datetime = Field(
-        ..., title="Birth Date", description="The birth date of the judoka."
+    birth_date: OptionalTimestamp = Field(
+        ...,
+        title="Birth Date",
+        description="The birth date of the judoka; None if unknown (judobase usually hides it, "
+        "see dob_year).",
     )
     country: str = Field(..., title="Country", description="The country the judoka represents.")
-    id_country: str = Field(
+    id_country: OptionalInt = Field(
         ..., title="Country ID", description="The identifier for the judoka's country."
     )
     country_short: str = Field(
@@ -575,8 +571,8 @@ class Judoka(BaseModel):
         title="Categories",
         description="List of competition categories the judoka participates in.",
     )
-    dob_year: str | int | None = Field(
-        None, title="Year of Birth", description="The year the judoka was born."
+    dob_year: OptionalInt = Field(
+        None, title="Year of Birth", description="The year the judoka was born; None if unknown."
     )
     age: str | int | None = Field(None, title="Age", description="The age of the judoka.")
     death_age: str | None = Field(
@@ -587,12 +583,6 @@ class Judoka(BaseModel):
     personal_picture: str | None = Field(
         None, title="Personal Picture", description="URL or path to the judoka's personal picture."
     )
-
-    @field_validator("birth_date", mode="after")
-    @classmethod
-    def parse_birth_date(cls, value: datetime) -> datetime:
-        """Ensures the birth_date field is set to UTC timezone."""
-        return value.replace(tzinfo=timezone.utc)
 
 
 class CurrentRating(BaseModel):
@@ -628,7 +618,7 @@ class CountryShort(BaseModel):
     """
 
     name: str = Field(..., title="Country Name", description="The full name of the country.")
-    id_country: str = Field(
+    id_country: int = Field(
         ..., title="Country ID", description="The unique identifier for the country."
     )
     ioc: str = Field(..., title="IOC code", description="International Olympic Committee code.")
@@ -638,7 +628,7 @@ class Country(BaseModel):
     """Represents the data about a country."""
 
     name: str = Field(..., title="Country Name", description="The full name of the country.")
-    id_country: str = Field(
+    id_country: int = Field(
         ..., title="Country ID", description="The unique identifier for the country."
     )
     country_short: str = Field(
