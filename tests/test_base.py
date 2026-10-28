@@ -10,6 +10,7 @@ from judobase import (
     CountryShort,
     CurrentRating,
     Judoka,
+    RankingEntry,
     RatingHistory,
 )
 from judobase.base import (
@@ -197,3 +198,33 @@ class TestRatingAPI:
             async with RatingAPI() as client:
                 result = await client.get_current_rating("test_id")
                 assert result == [CurrentRating(**row) for row in test_data["expected"]]
+
+    @pytest.mark.asyncio
+    async def test_get_ranking_list(self, mock_session, mock_api_response, get_test_data):
+        """Test get_ranking_list response."""
+        test_data = get_test_data("get_ranking_list.json")
+        mock_api_response(mock_response=test_data["mock_response"], mock_session=mock_session)
+
+        with patch("judobase.base.ClientSession", return_value=mock_session):
+            async with RatingAPI() as client:
+                result = await client.get_ranking_list(weight_id=2)
+                assert result == [RankingEntry(**row) for row in test_data["expected"]]
+                params = mock_session.get.call_args.kwargs["params"]
+                assert params["params[action]"] == "ranking.get_list"
+                assert params["params[id_weight]"] == 2
+                assert "params[id_age]" not in params  # an empty filter would match nothing
+
+                await client.get_ranking_list(age_id=1)
+                params = mock_session.get.call_args.kwargs["params"]
+                assert params["params[id_age]"] == 1
+                assert "params[id_weight]" not in params
+
+    @pytest.mark.asyncio
+    async def test_get_ranking_list_without_feed(self, mock_session, mock_api_response):
+        """Test get_ranking_list raises TypeError when the response has no feed."""
+        mock_api_response(mock_response={"error": "unknown action"}, mock_session=mock_session)
+
+        with patch("judobase.base.ClientSession", return_value=mock_session):
+            async with RatingAPI() as client:
+                with pytest.raises(TypeError, match="Expected 'feed' key in JSON response."):
+                    await client.get_ranking_list()

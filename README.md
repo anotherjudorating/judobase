@@ -82,6 +82,7 @@ asyncio.run(main())
 - `CompetitionAPI`: Base methods for fetching data about competitions.
 - `ContestAPI`: Base methods for fetching data about contests.
 - `CountryAPI`: Base methods for fetching data about countries.
+- `RatingAPI`: Base methods for fetching the World Ranking List: the whole current list or one competitor's rows.
 
 ---
 

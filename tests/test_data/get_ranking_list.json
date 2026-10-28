@@ -1,0 +1,59 @@
+{
+  "mock_response": {
+    "feed": [
+      {
+        "id_person": "13208",
+        "id_age": "1",
+        "id_weight": "2",
+        "place": "1",
+        "sum_points": "5200"
+      },
+      {
+        "id_person": "87228",
+        "id_age": "2",
+        "id_weight": "11",
+        "place": "1",
+        "sum_points": "4610"
+      },
+      {
+        "id_person": "99001",
+        "id_age": "7",
+        "id_weight": "45",
+        "place": "1",
+        "sum_points": "1800"
+      }
+    ],
+    "meta": {
+      "pagination": {
+        "total": 3,
+        "count": 3,
+        "per_page": 100000,
+        "current_page": 1,
+        "total_pages": 1
+      }
+    }
+  },
+  "expected": [
+    {
+      "id_person": 13208,
+      "id_age": 1,
+      "id_weight": 2,
+      "place": 1,
+      "sum_points": 5200
+    },
+    {
+      "id_person": 87228,
+      "id_age": 2,
+      "id_weight": 11,
+      "place": 1,
+      "sum_points": 4610
+    },
+    {
+      "id_person": 99001,
+      "id_age": 7,
+      "id_weight": 45,
+      "place": 1,
+      "sum_points": 1800
+    }
+  ]
+}

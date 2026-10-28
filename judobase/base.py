@@ -11,11 +11,15 @@ from judobase.schemas import (
     CountryShort,
     CurrentRating,
     Judoka,
+    RankingEntry,
     RatingHistory,
 )
 
 BASE_URL = "https://data.ijf.org/api/"
 HTTP_STATUS_OK = 200
+
+# More than the whole World Ranking List (about 18 000 entries in 2026), so it comes in one page.
+RANKING_LIST_LIMIT = 50_000
 DEFAULT_TIMEOUT = 10
 
 
@@ -168,6 +172,23 @@ class RatingAPI(_Base):
                 }
             )
         ]
+
+    async def get_ranking_list(
+        self, age_id: int | str | None = None, weight_id: int | str | None = None
+    ) -> list[RankingEntry]:
+        """Fetches the current World Ranking List, optionally of one age group or weight."""
+        request_params: dict[str, int | str] = {
+            "params[action]": "ranking.get_list",
+            "params[limit]": RANKING_LIST_LIMIT,
+        }
+        if age_id is not None:
+            request_params["params[id_age]"] = age_id
+        if weight_id is not None:
+            request_params["params[id_weight]"] = weight_id
+        response = await self._get_json_dict(request_params=request_params)
+        if "feed" not in response:
+            raise TypeError("Expected 'feed' key in JSON response.")
+        return [RankingEntry(**entry) for entry in response["feed"]]
 
 
 class CountryAPI(_Base):

@@ -3,7 +3,8 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from judobase import Competition, Contest, JudoBase
+from judobase import Competition, Contest, JudoBase, RankingEntry
+from judobase.schemas import WeightEnum
 
 
 class TestJudobase:
@@ -120,3 +121,23 @@ class TestJudobase:
         async with JudoBase() as client:
             await client.rating_history_by_id(123)
             mock_get_rating_history.assert_called_once_with("123")
+
+    @patch("judobase.base.RatingAPI.get_ranking_list", new_callable=AsyncMock)
+    @pytest.mark.asyncio
+    async def test_world_ranking_list(self, mock_get_ranking_list, get_test_data):
+        """Test world_ranking_list keeps the senior weights only."""
+        test_data = get_test_data("get_ranking_list.json")
+        mock_get_ranking_list.return_value = [RankingEntry(**r) for r in test_data["expected"]]
+
+        async with JudoBase() as client:
+            result = await client.world_ranking_list()
+            mock_get_ranking_list.assert_called_once_with()
+            assert [entry.id_person for entry in result] == [13208, 87228]
+
+    @patch("judobase.base.RatingAPI.get_ranking_list", new_callable=AsyncMock)
+    @pytest.mark.asyncio
+    async def test_world_ranking_list_of_one_weight(self, mock_get_ranking_list):
+        """Test world_ranking_list asks judobase for one weight."""
+        async with JudoBase() as client:
+            await client.world_ranking_list(WeightEnum.M66)
+            mock_get_ranking_list.assert_called_once_with(weight_id="2")

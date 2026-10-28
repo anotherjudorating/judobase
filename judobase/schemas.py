@@ -611,6 +611,26 @@ class RatingHistory(CurrentRating):
     version: str = Field(..., title="Version", description="Version label of the ranking snapshot.")
 
 
+class RankingEntry(BaseModel):
+    """Represents one place in the current World Ranking List.
+
+    Provided by the ``ranking.get_list`` method of Judobase API.
+    """
+
+    id_person: int = Field(..., title="Person ID", description="The ranked competitor.")
+    id_age: int = Field(
+        ...,
+        title="Age ID",
+        description="Age group and gender: 1 senior men, 2 senior women; others are juniors "
+        "and cadets.",
+    )
+    id_weight: int = Field(
+        ..., title="Weight ID", description="Weight category; 1-14 are the senior ones."
+    )
+    place: int = Field(..., title="Place", description="Place in the weight category.")
+    sum_points: int = Field(..., title="Points", description="Ranking points.")
+
+
 class CountryShort(BaseModel):
     """Represents the condensed data about a country.
 

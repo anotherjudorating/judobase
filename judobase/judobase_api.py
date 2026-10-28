@@ -12,6 +12,7 @@ from judobase.schemas import (
     CountryShort,
     CurrentRating,
     Judoka,
+    RankingEntry,
     RatingHistory,
     WeightEnum,
 )
@@ -96,3 +97,12 @@ class JudoBase(CompetitionAPI, ContestAPI, JudokaAPI, CountryAPI, RatingAPI):
     async def rating_history_by_id(self, judoka_id: int | str) -> list[RatingHistory]:
         """Retrieves WRL history rows for a specific judoka."""
         return await self.get_rating_history(str(judoka_id))
+
+    async def world_ranking_list(self, weight: WeightEnum | None = None) -> list[RankingEntry]:
+        """Retrieves the current senior World Ranking List, of every weight or of one."""
+        if weight is not None:
+            return await self.get_ranking_list(weight_id=WEIGHT_ID_MAPPING[weight])
+        senior_weights = {int(weight_id) for weight_id in WEIGHT_ID_MAPPING.values()}
+        return [
+            entry for entry in await self.get_ranking_list() if entry.id_weight in senior_weights
+        ]

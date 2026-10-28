@@ -6,6 +6,7 @@ from .schemas import (
     CountryShort,
     CurrentRating,
     Judoka,
+    RankingEntry,
     RatingHistory,
 )
 from .version import __version__
@@ -18,6 +19,7 @@ __all__ = [
     "CurrentRating",
     "JudoBase",
     "Judoka",
+    "RankingEntry",
     "RatingHistory",
     "__version__",
 ]

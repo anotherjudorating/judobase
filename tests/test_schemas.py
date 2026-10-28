@@ -4,7 +4,7 @@ from datetime import date, datetime, timezone
 
 import pytest
 
-from judobase import Competition, Contest, CountryShort, Judoka
+from judobase import Competition, Contest, CountryShort, Judoka, RankingEntry
 
 
 @pytest.fixture
@@ -142,3 +142,9 @@ def test_country_id_is_int():
     """Country ids are ints."""
     country = CountryShort(name="Japan", id_country="7", ioc="JPN")
     assert country.id_country == 7
+
+
+def test_ranking_entry_values_are_ints():
+    """The API sends everything as strings."""
+    entry = RankingEntry(id_person="13208", id_age="1", id_weight="2", place="1", sum_points="5200")
+    assert (entry.id_person, entry.id_weight, entry.place, entry.sum_points) == (13208, 2, 1, 5200)
