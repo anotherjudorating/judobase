@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Schemas &mdash; judobase v3.0.1 documentation</title>
+  <title>Schemas &mdash; judobase v3.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://anotherjudorating.github.io/judobase/user_guide/schemas.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=f30b24c3"></script>
+      <script src="../_static/documentation_options.js?v=26a6ea83"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -56,6 +56,9 @@
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/judobase.schemas.Contest.html">judobase.schemas.Contest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/judobase.schemas.Country.html">judobase.schemas.Country</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/judobase.schemas.CountryShort.html">judobase.schemas.CountryShort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/judobase.schemas.CurrentRating.html">judobase.schemas.CurrentRating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/judobase.schemas.RatingHistory.html">judobase.schemas.RatingHistory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/judobase.schemas.RankingEntry.html">judobase.schemas.RankingEntry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/judobase.schemas.Event.html">judobase.schemas.Event</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/judobase.schemas.EventTag.html">judobase.schemas.EventTag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/judobase.schemas.EventActor.html">judobase.schemas.EventActor</a></li>
@@ -110,13 +113,22 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.CountryShort.html#judobase.schemas.CountryShort" title="judobase.schemas.CountryShort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.CountryShort</span></code></a></p></td>
 <td><p>Represents the condensed data about a country.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.Event.html#judobase.schemas.Event" title="judobase.schemas.Event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.Event</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.CurrentRating.html#judobase.schemas.CurrentRating" title="judobase.schemas.CurrentRating"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.CurrentRating</span></code></a></p></td>
+<td><p>Represents current WRL rows for a competitor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.RatingHistory.html#judobase.schemas.RatingHistory" title="judobase.schemas.RatingHistory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.RatingHistory</span></code></a></p></td>
+<td><p>Represents historical WRL rows for a competitor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.RankingEntry.html#judobase.schemas.RankingEntry" title="judobase.schemas.RankingEntry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.RankingEntry</span></code></a></p></td>
+<td><p>Represents one place in the current World Ranking List.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.Event.html#judobase.schemas.Event" title="judobase.schemas.Event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.Event</span></code></a></p></td>
 <td><p>Represents the data about contest events by the Judobase API.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.EventTag.html#judobase.schemas.EventTag" title="judobase.schemas.EventTag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.EventTag</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.EventTag.html#judobase.schemas.EventTag" title="judobase.schemas.EventTag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.EventTag</span></code></a></p></td>
 <td><p>Represents the data about event tags.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.EventActor.html#judobase.schemas.EventActor" title="judobase.schemas.EventActor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.EventActor</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/judobase.schemas.EventActor.html#judobase.schemas.EventActor" title="judobase.schemas.EventActor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">judobase.schemas.EventActor</span></code></a></p></td>
 <td><p>Represents the data about event actors.</p></td>
 </tr>
 </tbody>

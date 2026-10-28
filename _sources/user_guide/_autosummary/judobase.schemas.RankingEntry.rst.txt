@@ -1,0 +1,6 @@
+﻿judobase.schemas.RankingEntry
+=============================
+
+.. currentmodule:: judobase.schemas
+
+.. autopydantic_model:: RankingEntry

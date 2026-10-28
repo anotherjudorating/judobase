@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>judobase.schemas.RankingEntry &mdash; judobase v3.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+
+  
+    <link rel="canonical" href="https://anotherjudorating.github.io/judobase/user_guide/_autosummary/judobase.schemas.RankingEntry.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=26a6ea83"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="judobase.schemas.Event" href="judobase.schemas.Event.html" />
+    <link rel="prev" title="judobase.schemas.RatingHistory" href="judobase.schemas.RatingHistory.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            judobase
+              <img src="../../_static/ijf-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🙋 User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../schemas.html">Schemas</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.Judoka.html">judobase.schemas.Judoka</a></li>
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.Competition.html">judobase.schemas.Competition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.Contest.html">judobase.schemas.Contest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.Country.html">judobase.schemas.Country</a></li>
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.CountryShort.html">judobase.schemas.CountryShort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.CurrentRating.html">judobase.schemas.CurrentRating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.RatingHistory.html">judobase.schemas.RatingHistory</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">judobase.schemas.RankingEntry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#judobase.schemas.RankingEntry"><code class="docutils literal notranslate"><span class="pre">RankingEntry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#judobase.schemas.RankingEntry.id_age"><code class="docutils literal notranslate"><span class="pre">RankingEntry.id_age</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#judobase.schemas.RankingEntry.id_person"><code class="docutils literal notranslate"><span class="pre">RankingEntry.id_person</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#judobase.schemas.RankingEntry.id_weight"><code class="docutils literal notranslate"><span class="pre">RankingEntry.id_weight</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#judobase.schemas.RankingEntry.place"><code class="docutils literal notranslate"><span class="pre">RankingEntry.place</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#judobase.schemas.RankingEntry.sum_points"><code class="docutils literal notranslate"><span class="pre">RankingEntry.sum_points</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.Event.html">judobase.schemas.Event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.EventTag.html">judobase.schemas.EventTag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="judobase.schemas.EventActor.html">judobase.schemas.EventActor</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../references/api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">judobase</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../schemas.html">Schemas</a></li>
+      <li class="breadcrumb-item active">judobase.schemas.RankingEntry</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/anotherjudorating/judobase/blob/master/docs/source/user_guide/_autosummary/judobase.schemas.RankingEntry.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="judobase-schemas-rankingentry">
+<h1>judobase.schemas.RankingEntry<a class="headerlink" href="#judobase-schemas-rankingentry" title="Link to this heading"></a></h1>
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="judobase.schemas.RankingEntry">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">judobase.schemas.</span></span><span class="sig-name descname"><span class="pre">RankingEntry</span></span><a class="headerlink" href="#judobase.schemas.RankingEntry" title="Link to this definition"></a></dt>
+<dd><p>Represents one place in the current World Ranking List.</p>
+<p>Provided by the <code class="docutils literal notranslate"><span class="pre">ranking.get_list</span></code> method of Judobase API.</p>
+<p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RankingEntry&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Represents one place in the current World Ranking List.\n\nProvided by the ``ranking.get_list`` method of Judobase API.&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id_person&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The ranked competitor.&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Person ID&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;id_age&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Age group and gender: 1 senior men, 2 senior women; others are juniors and cadets.&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Age ID&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;id_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Weight category; 1-14 are the senior ones.&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Weight ID&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;place&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Place in the weight category.&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Place&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;sum_points&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ranking points.&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Points&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;id_person&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;id_age&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;id_weight&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;place&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;sum_points&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#judobase.schemas.RankingEntry.id_age" title="judobase.schemas.RankingEntry.id_age"><code class="xref py py-obj docutils literal notranslate"><span class="pre">id_age</span> <span class="pre">(int)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#judobase.schemas.RankingEntry.id_person" title="judobase.schemas.RankingEntry.id_person"><code class="xref py py-obj docutils literal notranslate"><span class="pre">id_person</span> <span class="pre">(int)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#judobase.schemas.RankingEntry.id_weight" title="judobase.schemas.RankingEntry.id_weight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">id_weight</span> <span class="pre">(int)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#judobase.schemas.RankingEntry.place" title="judobase.schemas.RankingEntry.place"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place</span> <span class="pre">(int)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#judobase.schemas.RankingEntry.sum_points" title="judobase.schemas.RankingEntry.sum_points"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum_points</span> <span class="pre">(int)</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="judobase.schemas.RankingEntry.id_age">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id_age</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#judobase.schemas.RankingEntry.id_age" title="Link to this definition"></a></dt>
+<dd><p>Age group and gender: 1 senior men, 2 senior women; others are juniors and cadets.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="judobase.schemas.RankingEntry.id_person">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id_person</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#judobase.schemas.RankingEntry.id_person" title="Link to this definition"></a></dt>
+<dd><p>The ranked competitor.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="judobase.schemas.RankingEntry.id_weight">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id_weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#judobase.schemas.RankingEntry.id_weight" title="Link to this definition"></a></dt>
+<dd><p>Weight category; 1-14 are the senior ones.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="judobase.schemas.RankingEntry.place">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">place</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#judobase.schemas.RankingEntry.place" title="Link to this definition"></a></dt>
+<dd><p>Place in the weight category.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="judobase.schemas.RankingEntry.sum_points">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sum_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#judobase.schemas.RankingEntry.sum_points" title="Link to this definition"></a></dt>
+<dd><p>Ranking points.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="judobase.schemas.RatingHistory.html" class="btn btn-neutral float-left" title="judobase.schemas.RatingHistory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="judobase.schemas.Event.html" class="btn btn-neutral float-right" title="judobase.schemas.Event" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ddzgoev.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
