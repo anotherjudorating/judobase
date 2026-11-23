@@ -40,6 +40,19 @@ def _epoch_to_none(value: datetime | None) -> datetime | None:
     return value
 
 
+def _number_to_text(value: Any) -> Any:
+    """Judobase sends some text fields as numbers: kept as their text.
+
+    A competition's status comes as -1 since November 2026 for events far ahead.
+    """
+    if isinstance(value, int | float) and not isinstance(value, bool):
+        return str(value)
+    return value
+
+
+OptionalText = Annotated[str | None, BeforeValidator(_number_to_text)]
+"""Text that judobase sometimes sends as a number ("-1" for -1)."""
+
 OptionalInt = Annotated[int | None, BeforeValidator(_empty_to_none)]
 """Integer where 0, "0" and "" mean "unknown" and become None."""
 
@@ -156,7 +169,9 @@ class Competition(BaseModel):
     is_teams: bool = Field(
         ..., title="Team Competition", description="Indicates if the competition is a team event."
     )
-    status: str | None = Field(None, title="Status", description="The status of the competition.")
+    status: OptionalText = Field(
+        None, title="Status", description="The status of the competition."
+    )
     external_id: str | None = Field(
         None, title="External ID", description="The external identifier for the competition."
     )

@@ -56,6 +56,11 @@ class TestCompetition:
         competition = Competition(**{**competition_data, "date_from": raw})
         assert competition.date_from == date(2024, 7, 27)
 
+    def test_a_numeric_status_is_text(self, competition_data):
+        """Judobase sends -1 as the status of competitions far ahead (November 2026)."""
+        competition = Competition(**{**competition_data, "status": -1})
+        assert competition.status == "-1"
+
     def test_has_results_is_a_count(self, competition_data):
         """has_results is the number of results, not a flag."""
         competition = Competition(**{**competition_data, "has_results": "112"})
