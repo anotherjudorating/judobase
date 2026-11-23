@@ -57,7 +57,7 @@ class TestCompetition:
         assert competition.date_from == date(2024, 7, 27)
 
     def test_a_numeric_status_is_text(self, competition_data):
-        # judobase sends -1 for competitions far ahead (November 2026)
+        """Judobase sends -1 as the status of competitions far ahead (November 2026)."""
         competition = Competition(**{**competition_data, "status": -1})
         assert competition.status == "-1"
 
